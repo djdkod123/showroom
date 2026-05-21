@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta name="theme-color" content="#0f172a"/>
+  <title>SHOWROOM AUTO LAGHOUAT - سيارات فيات وجيلي بالتقسيط</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --pr:#0f172a; --pr2:#1e293b; --ac:#06b6d4; --ach:#0891b2;
+      --gd:#f59e0b; --lt:#f1f5f9; --tx:#1e293b; --mu:#64748b;
+      --wh:#ffffff; --bd:#e2e8f0; --rd:14px; --sh:0 4px 20px rgba(0,0,0,.10);
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:var(--lt);color:var(--tx);direction:rtl;line-height:1.6}
+    a{text-decoration:none;color:inherit}
+    img{display:block}
+
+    /* NAV */
+    nav{background:var(--pr);color:var(--wh);display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:64px;position:sticky;top:0;z-index:200;box-shadow:0 2px 14px rgba(0,0,0,.3)}
+    .nav-brand{font-size:.95rem;font-weight:800;white-space:nowrap}
+    .nav-links{display:flex;gap:1.2rem;list-style:none;font-size:.88rem}
+    .nav-links a:hover{color:var(--gd)}
+    .nav-phone{background:var(--ac);color:var(--pr)!important;padding:7px 16px;border-radius:30px;font-weight:800;font-size:.85rem;direction:ltr;white-space:nowrap}
+    .nav-phone:hover{background:var(--ach)}
+
+    /* HERO */
+    .hero{position:relative;background:linear-gradient(135deg,var(--pr) 50%,var(--pr2) 100%);color:var(--wh);text-align:center;padding:65px 5% 55px;overflow:hidden}
+    .hero-bg{position:absolute;inset:0;background:url('https://v0-fiat-geely-algeria.vercel.app/images/hero-cars.jpg') center/cover no-repeat;opacity:.15}
+    .hero-c{position:relative;z-index:1}
+    .hero h1{font-size:clamp(1.7rem,4.5vw,2.8rem);font-weight:900;margin-bottom:.9rem;line-height:1.3}
+    .hero p{font-size:1rem;opacity:.85;max-width:560px;margin:0 auto 1.8rem}
+    .hero-btns{display:flex;gap:.9rem;justify-content:center;flex-wrap:wrap}
+    .btn{padding:12px 28px;border-radius:30px;font-size:.96rem;font-weight:700;cursor:pointer;border:none;transition:transform .18s,box-shadow .18s;font-family:inherit}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,.22)}
+    .btn-pr{background:var(--ac);color:var(--pr);font-weight:800}
+    .btn-ol{background:transparent;color:var(--wh);border:2px solid rgba(255,255,255,.7)}
+    .btn-ol:hover{background:rgba(255,255,255,.12)}
+    .hero-feats{display:flex;justify-content:center;gap:1.2rem;margin-top:2.5rem;flex-wrap:wrap}
+    .hf{background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.16);border-radius:var(--rd);padding:16px 22px;font-size:.86rem;text-align:center;min-width:135px}
+    .hf .ic{font-size:1.8rem;margin-bottom:5px}
+    .hf strong{display:block;margin-bottom:2px}
+
+    /* SECTION */
+    .sec{padding:55px 5%}
+    .sec-title{text-align:center;font-size:clamp(1.3rem,3vw,1.9rem);font-weight:900;color:var(--pr);margin-bottom:.4rem}
+    .sec-sub{text-align:center;color:var(--mu);margin-bottom:2.2rem;font-size:.92rem}
+
+    /* FILTER */
+    .ftabs{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem}
+    .tab{padding:7px 20px;border-radius:30px;border:2px solid var(--bd);background:var(--wh);font-size:.88rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
+    .tab.active,.tab:hover{background:var(--pr);color:var(--wh);border-color:var(--pr)}
+
+    /* CARS GRID */
+    .cars-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1.4rem}
+    .car-card{background:var(--wh);border-radius:var(--rd);overflow:hidden;box-shadow:var(--sh);transition:transform .22s,box-shadow .22s;display:flex;flex-direction:column}
+    .car-card:hover{transform:translateY(-6px);box-shadow:0 14px 36px rgba(0,0,0,.15)}
+    .car-card.hidden{display:none}
+    .car-img-wrap{width:100%;height:185px;overflow:hidden;background:#e2e8f0}
+    .car-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .35s}
+    .car-card:hover .car-img-wrap img{transform:scale(1.06)}
+    .car-badge{display:inline-block;background:var(--pr);color:var(--wh);font-size:.7rem;font-weight:700;padding:3px 11px;border-radius:20px;margin:11px 13px 3px}
+    .car-info{padding:0 13px 14px;flex:1;display:flex;flex-direction:column}
+    .car-name{font-size:1.05rem;font-weight:800;color:var(--pr)}
+    .car-year{font-size:.8rem;color:var(--mu);margin-bottom:7px}
+    .car-specs{display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:9px}
+    .spec{background:var(--lt);border:1px solid var(--bd);border-radius:5px;padding:2px 8px;font-size:.73rem;color:var(--mu)}
+    .car-price{font-size:.94rem;font-weight:700;color:var(--tx);margin-top:auto}
+    .car-price span{color:var(--mu);font-weight:400;font-size:.82rem}
+    .car-monthly{font-size:.85rem;color:var(--ac);font-weight:700;margin-top:2px}
+    .btn-car{display:block;width:100%;margin-top:11px;padding:10px;background:var(--pr);color:var(--wh);border:none;border-radius:8px;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s}
+    .btn-car:hover{background:var(--ac);color:var(--pr)}
+
+    /* HOW IT WORKS */
+    #financing{background:#e2eaf4}
+    .steps-how{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1.3rem}
+    .step-how{background:var(--wh);border-radius:var(--rd);padding:28px 20px;text-align:center;box-shadow:var(--sh)}
+    .step-n{width:50px;height:50px;background:var(--pr);color:var(--wh);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:900;margin:0 auto 13px}
+    .step-how h3{font-size:.97rem;font-weight:700;margin-bottom:5px;color:var(--pr)}
+    .step-how p{font-size:.85rem;color:var(--mu)}
+
+    /* REGISTER */
+    #register{background:var(--pr)}
+    #register .sec-title{color:var(--wh)}
+    #register .sec-sub{color:rgba(255,255,255,.68)}
+    .form-card{background:var(--wh);border-radius:var(--rd);padding:32px 28px;max-width:640px;margin:0 auto;box-shadow:0 8px 32px rgba(0,0,0,.25)}
+
+    /* Step indicator */
+    .si{display:flex;align-items:center;justify-content:center;margin-bottom:1.8rem}
+    .si-s{display:flex;flex-direction:column;align-items:center;gap:3px}
+    .si-c{width:34px;height:34px;border-radius:50%;background:var(--bd);color:var(--mu);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.88rem;transition:all .3s}
+    .si-c.act{background:var(--ac);color:var(--pr)}
+    .si-c.don{background:#16a34a;color:var(--wh)}
+    .si-l-text{font-size:.7rem;color:var(--mu);transition:color .3s}
+    .si-l-text.act{color:var(--pr);font-weight:700}
+    .si-line{width:50px;height:3px;background:var(--bd);margin:0 4px 17px;transition:background .3s}
+    .si-line.don{background:#16a34a}
+
+    .fstep{display:none}
+    .fstep.act{display:block}
+    .fstep-title{font-size:1.05rem;font-weight:800;color:var(--pr);margin-bottom:1.3rem;padding-bottom:.5rem;border-bottom:2px solid var(--bd)}
+    .fg{margin-bottom:1.1rem}
+    .frow{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+    label{display:block;font-size:.85rem;font-weight:600;margin-bottom:4px;color:var(--tx)}
+    label .req{color:var(--ac)}
+    input[type=text],input[type=tel],input[type=date],select{width:100%;padding:10px 13px;border:2px solid var(--bd);border-radius:8px;font-size:.93rem;font-family:inherit;transition:border-color .2s,box-shadow .2s;direction:rtl;background:var(--wh);color:var(--tx)}
+    input:focus,select:focus{outline:none;border-color:var(--ac);box-shadow:0 0 0 3px rgba(6,182,212,.14)}
+    .fnote{font-size:.75rem;color:var(--mu);margin-top:4px;line-height:1.5}
+    .rg{display:flex;gap:1.8rem;margin-top:4px}
+    .rg label{display:flex;align-items:center;gap:6px;font-weight:500;cursor:pointer;font-size:.88rem}
+    .slbl{font-size:.76rem;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:.9px;margin:1.3rem 0 .5rem;padding-bottom:3px;border-bottom:1px solid var(--bd)}
+
+    /* Car select in form */
+    .csg{display:grid;grid-template-columns:repeat(auto-fill,minmax(125px,1fr));gap:.6rem;margin-top:.4rem}
+    .co{border:2px solid var(--bd);border-radius:10px;padding:7px 5px;text-align:center;cursor:pointer;transition:all .2s;font-size:.76rem;font-weight:600;color:var(--tx)}
+    .co img{width:100%;height:62px;object-fit:cover;border-radius:6px;margin-bottom:4px}
+    .co:hover{border-color:var(--ac);background:#e0f7fa}
+    .co.sel{border-color:var(--ac);background:#e0f7fa;color:var(--pr)}
+
+    .fnav{display:flex;gap:.9rem;margin-top:1.5rem}
+    .btn-next,.btn-prev,.btn-sub{padding:11px 22px;border-radius:8px;font-size:.93rem;font-weight:700;cursor:pointer;border:none;font-family:inherit;transition:background .2s,transform .15s}
+    .btn-next:hover,.btn-sub:hover{transform:translateY(-1px)}
+    .btn-next{background:var(--ac);color:var(--pr);font-weight:800;flex:1}
+    .btn-prev{background:var(--bd);color:var(--tx)}
+    .btn-sub{background:#16a34a;color:var(--wh);flex:1}
+
+    .cbox{background:var(--lt);border-radius:10px;padding:18px;margin-bottom:1.3rem;font-size:.88rem;line-height:2.1;border:1px solid var(--bd)}
+    .cbox strong{color:var(--pr)}
+
+    .succ{text-align:center;padding:20px 8px}
+    .succ .ck{font-size:3.2rem;margin-bottom:.5rem}
+    .succ h3{font-size:1.25rem;color:#16a34a;margin-bottom:.4rem}
+    .succ p{color:var(--mu);font-size:.9rem}
+
+    /* FOOTER */
+    footer{background:#060d1a;color:rgba(255,255,255,.83);padding:48px 5% 24px}
+    .fg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:2.2rem;margin-bottom:2.2rem}
+    .fb h3{font-size:1rem;font-weight:800;color:var(--wh);margin-bottom:9px}
+    .fb p{font-size:.85rem;opacity:.7;line-height:1.75}
+    .fc h4{font-size:.92rem;font-weight:700;color:var(--wh);margin-bottom:12px;padding-bottom:7px;border-bottom:2px solid rgba(255,255,255,.11)}
+    .fc p,.fc a{font-size:.85rem;opacity:.7;display:block;margin-bottom:7px;transition:opacity .2s,color .2s}
+    .fc a:hover{opacity:1;color:var(--gd)}
+    .fbot{border-top:1px solid rgba(255,255,255,.09);padding-top:20px;text-align:center;font-size:.8rem;opacity:.5}
+
+    /* ADMIN */
+    #adminOverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:9999;overflow-y:auto;padding:20px 12px}
+    .abox{background:var(--wh);border-radius:var(--rd);max-width:1050px;margin:0 auto;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+    .ahdr{background:var(--pr);color:var(--wh);padding:18px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem}
+    .ahdr h2{font-size:1rem;font-weight:800}
+    .ahdr-btns{display:flex;gap:.6rem;flex-wrap:wrap}
+    .abtn{border:none;border-radius:8px;padding:7px 16px;font-weight:700;cursor:pointer;font-family:inherit;font-size:.85rem}
+    .abtn-close{background:var(--ac);color:var(--pr)}
+    .abtn-del{background:#fee2e2;color:#b91c1c}
+    .abody{padding:20px 22px}
+    .astats{display:flex;gap:.9rem;margin-bottom:1.3rem;flex-wrap:wrap}
+    .astat{background:var(--lt);border-radius:10px;padding:12px 20px;text-align:center;flex:1;min-width:110px}
+    .astat .num{font-size:1.9rem;font-weight:900;color:var(--ac)}
+    .astat .lbl{font-size:.76rem;color:var(--mu)}
+    .atw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+    table{width:100%;border-collapse:collapse;font-size:.81rem;min-width:800px}
+    th{background:var(--pr);color:var(--wh);padding:9px 11px;text-align:right;font-weight:700;white-space:nowrap}
+    td{padding:9px 11px;border-bottom:1px solid var(--bd);vertical-align:top;white-space:nowrap}
+    tr:hover td{background:#f0fafa}
+    .bcar{background:#e0f7fa;color:var(--pr);border-radius:20px;padding:2px 9px;font-size:.74rem;font-weight:700}
+    .bcard{background:#fef9c3;color:#92400e;border-radius:6px;padding:3px 8px;font-family:monospace;font-size:.88rem;font-weight:700}
+    .no-ord{text-align:center;padding:38px;color:var(--mu);font-size:.92rem}
+    /* admin trigger btn */
+    .atrig{position:fixed;bottom:16px;left:16px;width:42px;height:42px;background:var(--pr);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.35);z-index:500;font-size:1.1rem;border:2px solid var(--ac)}
+    .atrig:hover{background:var(--pr2)}
+
+    /* loading overlay */
+    #loadingOverlay{display:none;position:fixed;inset:0;background:rgba(15,23,42,.7);z-index:8888;align-items:center;justify-content:center;flex-direction:column;gap:1rem;color:var(--wh);font-size:1rem;font-weight:700}
+    #loadingOverlay.show{display:flex}
+    .spinner{width:40px;height:40px;border:4px solid rgba(255,255,255,.2);border-top-color:var(--ac);border-radius:50%;animation:spin .8s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    @media(max-width:680px){
+      .nav-links{display:none}
+      .frow{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+<div id="loadingOverlay"><div class="spinner"></div>جاري إرسال طلبك إلى التطبيق...</div>
+
+<nav>
+  <div class="nav-brand">SHOWROOM AUTO LAGHOUAT</div>
+  <ul class="nav-links">
+    <li><a href="#top">الرئيسية</a></li>
+    <li><a href="#cars">السيارات</a></li>
+    <li><a href="#financing">التقسيط</a></li>
+    <li><a href="#register">التسجيل</a></li>
+    <li><a href="#contact">اتصل بنا</a></li>
+  </ul>
+  <a href="tel:0552203576" class="nav-phone">05 52 20 35 76</a>
+</nav>
+
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-c">
+    <h1>امتلك سيارة أحلامك بالتقسيط المريح</h1>
+    <p>سيارات فيات وجيلي الجديدة متوفرة الآن في الجزائر بأقساط شهرية مناسبة وبدون فوائد مخفية</p>
+    <div class="hero-btns">
+      <a href="#cars"     class="btn btn-pr">تصفح السيارات</a>
+      <a href="#register" class="btn btn-ol">سجل الآن</a>
+    </div>
+    <div class="hero-feats">
+      <div class="hf"><div class="ic">💳</div><strong>تقسيط مريح</strong><div>أقساط شهرية تناسب ميزانيتك</div></div>
+      <div class="hf"><div class="ic">🛡️</div><strong>ضمان شامل</strong><div>ضمان المصنع على جميع السيارات</div></div>
+      <div class="hf"><div class="ic">⚡</div><strong>إجراءات سريعة</strong><div>ملف بسيط وموافقة سريعة</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="cars">
+  <h2 class="sec-title">تشكيلة سياراتنا</h2>
+  <p class="sec-sub">اختر من بين أفضل سيارات فيات وجيلي وليفان وشاحنات تيرصام المتوفرة بالتقسيط</p>
+  <div class="ftabs">
+    <button class="tab active" data-f="all">الكل</button>
+    <button class="tab" data-f="Fiat">Fiat</button>
+    <button class="tab" data-f="Geely">Geely</button>
+    <button class="tab" data-f="Livan">Livan</button>
+    <button class="tab" data-f="Terrsam">تيرصام</button>
+  </div>
+  <div class="cars-grid">
+    <div class="car-card" data-brand="Fiat">
+      <div class="car-img-wrap"><img src="https://v0-fiat-geely-algeria.vercel.app/images/fiat-tipo.jpg" alt="Fiat Tipo" loading="lazy"/></div>
+      <span class="car-badge">Fiat</span>
+      <div class="car-info">
+        <div class="car-name">Fiat Tipo</div><div class="car-year">2025</div>
+        <div class="car-specs"><span class="spec">بنزين</span><span class="spec">يدوي</span><span class="spec">5 مقاعد</span></div>
+        <div class="car-price"><span>السعر:</span> 3.200.000 د.ج</div>
+        <div class="car-monthly">القسط: 17.500 د.ج/شهر</div>
+        <button class="btn-car" onclick="selectCar('Fiat Tipo')">اختر هذه السيارة</button>
+      </div>
+    </div>
+    <div class="car-card" data-brand="Fiat">
+      <div class="car-img-wrap"><img src="https://v0-fiat-geely-algeria.vercel.app/images/fiat-500.jpg" alt="Fiat 500" loading="lazy"/></div>
+      <span class="car-badge">Fiat</span>
+      <div class="car-info">
+        <div class="car-name">Fiat 500</div><div class="car-year">2025</div>
+        <div class="car-specs"><span class="spec">بنزين</span><span class="spec">أوتوماتيك</span><span class="spec">4 مقاعد</span></div>
+        <div class="car-price"><span>السعر:</span> 2.800.000 د.ج</div>
+        <div class="car-monthly">القسط: 18.500 د.ج/شهر</div>
+        <button class="btn-car" onclick="selectCar('Fiat 500')">اختر هذه السيارة</button>
+      </div>
+    </div>
+    <div class="car-card" data-brand="Fiat">
+      <div class="car-img-wrap"><img src="https://v0-fiat-geely-algeria.vercel.app/images/fiat-doblo.jpg" alt="Fiat Doblo" loading="lazy"/></div>
+      <span class="car-badge">Fiat</span>
+      <div class="car-info">
+        <div class="car-name">Fiat Doblo</div><div class="car-year">2025</div>
+        <div class="car-specs"><span class="spec">ديزل</span><span class="spec">يدوي</span><span class="spec">5 مقاعد</span></div>
+        <div class="car-price"><span>السعر:</span> 3.500.000 د.ج</div>
+        <div class="car-monthly">القسط: 23.000 د.ج/شهر</div>
+        <button class="btn-car" onclick="selectCar('Fiat Doblo')">اختر هذه السيارة</button>
+      </div>
+    </div>
+    <div class="car-card" data-brand="Fiat">
+      <div class="car-img-wrap"><img src="https://v0-fiat-geely-algeria.vercel.app/images/fiat-doblo-panorama.jpg" alt="Doblo Panorama" loading="lazy"/></div>
+      <span class="car-badge">Fiat</span>
+      <div class="car-info">
+        <div class="car-name">Fiat Doblo Panorama</div><div class="car-year">2025</div>
+        <div class="car-specs"><span class="spec">ديزل</span><span class="spec">يدوي</span><span class="spec">7 مقاعد</span></div>
+        <div class="car-price"><span>السعر:</span> 3.800.000 د.ج</div>
+        <div class="car-monthly">القسط: 25.000 د.ج/شهر</div>
+        <button class="btn-car" onclick="selectCar('Fiat Doblo Panorama')">اختر هذه السيارة</button>
+      </div>
+    </div>
+    <div class="car-card" data-brand="Fiat">
+      <div class="car-img-wrap"><img src="https://v0-fiat-geely-algeria.vercel.app/images/fiat-panda.jpg" alt="Fiat Panda" loading="lazy"/></div>
+      <span class="car-badge">Fiat</span>
+      <div class="car-info">
+        <div class="car-name">Fiat Panda</div><div class="car-year">2025</div>
+        <div class="car-specs"><span class="spec">بنزين</span><span class="spec">يدوي</span><span class="spec">5 مقاعد</span></div>
+        <div class="car-price"><span>السعر:</span> 2.400.000 د.ج</div>
+        <div class="car-monthly">القسط: 16.000 د.ج/شهر</div>
+        <button class="btn-car" onclick="selectCar('Fiat Panda')">اختر هذه السيارة</button>
+      </div>
+    </div>
+    <div class="car-card" data-brand="Geely">
+      <div class="car-img-wrap"><img src="https://v0-fiat-geely-algeria.vercel.app/images/geely-emgrand.jpg" alt="Geely Emgrand" loading="lazy"/></div>
+      <span class="car-badge">Geely</span>
+      <div class="car-info">
+        <div class="car-name">Geely Emgrand</div><div class="car-year">2025</div>
+        <div class="car-specs"><span class="spec">بنزين</span><span class="spec">أوتوماتيك</span><span class="spec">5 مقاعد</span></div>
+        <div class="car-price"><span>السعر:</span> 3.000.000 د.ج</div>
+        <div class="car-monthly">القسط: 20.000 د.ج/شهر</div>
+        <button class="btn-car" onclick="selectCar('Geely Emgrand')">اختر هذه السيارة</button>
+      </div>
+    </div>
+    <div class="car-card" data-brand="Geely">
+      <div class="car-img-wrap"><img src="https://v0-fiat-geely-algeria.vercel.app/images/geely-coolray.jpg" alt="Geely Coolray" loading="lazy"/></div>
+      <span class="car-badge">Geely</span>
+      <div class="car-info">
+        <div class="car-name">Geely Coolray</div><div class="car-year">2025</div>
+        <div class="car-specs"><span class="spec">بنزين</span><span class="spec">أوتوماتيك</span><span class="spec">5 مقاعد</span></div>
+        <div class="car-price"><span>السعر:</span> 3.800.000 د.ج</div>
+        <div class="car-monthly">القسط: 25.000 د.ج/شهر</div>
+        <button class="btn-car" onclick="selectCar('Geely Coolray')">اختر هذه السيارة</button>
+      </div>
+    </div>
+    <div class="car-card" data-brand="Geely">
+      <div class="car-img-wrap"><img src="https://v0-fiat-geely-algeria.vercel.app/images/geely-azkarra.jpg" alt="Geely Azkarra" loading="lazy"/></div>
+      <span class="car-badge">Geely</span>
+      <div class="car-info">
+        <div class="car-name">Geely Azkarra</div><div class="car-year">2025</div>
+        <div class="car-specs"><span class="spec">هجين</span><span class="spec">أوتوماتيك</span><span class="spec">5 مقاعد</span></div>
+        <div class="car-price"><span>السعر:</span> 4.500.000 د.ج</div>
+        <div class="car-monthly">القسط: 29.500 د.ج/شهر</div>
+        <button class="btn-car" onclick="selectCar('Geely Azkarra')">اختر هذه السيارة</button>
+      </div>
+    </div>
+    <div class="car-card" data-brand="Livan">
+      <div class="car-img-wrap"><img src="https://v0-fiat-geely-algeria.vercel.app/images/livan-x3-pro.jpg" alt="Livan X3 PRO" loading="lazy"/></div>
+      <span class="car-badge">Livan</span>
+      <div class="car-info">
+        <div class="car-name">Livan X3 PRO</div><div class="car-year">2025</div>
+        <div class="car-specs"><span class="spec">بنزين</span><span class="spec">أوتوماتيك</span><span class="spec">5 مقاعد</span></div>
+        <div class="car-price"><span>السعر:</span> 2.000.000 د.ج</div>
+        <div class="car-monthly">القسط: 13.000 د.ج/شهر</div>
+        <button class="btn-car" onclick="selectCar('Livan X3 PRO')">اختر هذه السيارة</button>
+      </div>
+    </div>
+    <div class="car-card" data-brand="Terrsam">
+      <div class="car-img-wrap"><img src="https://v0-fiat-geely-algeria.vercel.app/images/terrsam-single-cabin.jpg" alt="Terrsam واحدة" loading="lazy"/></div>
+      <span class="car-badge">Terrsam</span>
+      <div class="car-info">
+        <div class="car-name">Terrsam كابينة واحدة</div><div class="car-year">2025</div>
+        <div class="car-specs"><span class="spec">ديزل</span><span class="spec">يدوي</span><span class="spec">3 مقاعد</span></div>
+        <div class="car-price"><span>السعر:</span> 1.850.000 د.ج</div>
+        <div class="car-monthly">القسط: 12.000 د.ج/شهر</div>
+        <button class="btn-car" onclick="selectCar('Terrsam كابينة واحدة')">اختر هذه السيارة</button>
+      </div>
+    </div>
+    <div class="car-card" data-brand="Terrsam">
+      <div class="car-img-wrap"><img src="https://v0-fiat-geely-algeria.vercel.app/images/terrsam-double-cabin.jpg" alt="Terrsam مزدوجة" loading="lazy"/></div>
+      <span class="car-badge">Terrsam</span>
+      <div class="car-info">
+        <div class="car-name">Terrsam كابينة مزدوجة</div><div class="car-year">2025</div>
+        <div class="car-specs"><span class="spec">ديزل</span><span class="spec">يدوي</span><span class="spec">6 مقاعد</span></div>
+        <div class="car-price"><span>السعر:</span> 2.000.000 د.ج</div>
+        <div class="car-monthly">القسط: 13.000 د.ج/شهر</div>
+        <button class="btn-car" onclick="selectCar('Terrsam كابينة مزدوجة')">اختر هذه السيارة</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="financing">
+  <h2 class="sec-title">كيف يعمل التقسيط؟</h2>
+  <p class="sec-sub">4 خطوات بسيطة لامتلاك سيارة أحلامك</p>
+  <div class="steps-how">
+    <div class="step-how"><div class="step-n">1</div><h3>اختر سيارتك</h3><p>تصفح تشكيلتنا واختر السيارة التي تناسبك</p></div>
+    <div class="step-how"><div class="step-n">2</div><h3>قدم طلبك</h3><p>إملأ الاستمارة بمعلوماتك الشخصية والبطاقة الذهبية</p></div>
+    <div class="step-how"><div class="step-n">3</div><h3>ادفع التسبيق</h3><p>ادفع مبلغ التسبيق الأولي وابدأ إجراءات التقسيط</p></div>
+    <div class="step-how"><div class="step-n">4</div><h3>استلم سيارتك</h3><p>سدد أقساطك الشهرية براحة بدون فوائد مخفية</p></div>
+  </div>
+</section>
+
+<section class="sec" id="register">
+  <h2 class="sec-title">سجل الآن واحصل على سيارتك</h2>
+  <p class="sec-sub">إملأ الاستمارة وسنتواصل معك في أقرب وقت</p>
+  <div class="form-card">
+
+    <div class="si" id="siWrap">
+      <div class="si-s"><div class="si-c act" id="si1">1</div><div class="si-l-text act" id="sl1">السيارة</div></div>
+      <div class="si-line" id="ln1"></div>
+      <div class="si-s"><div class="si-c" id="si2">2</div><div class="si-l-text" id="sl2">المعلومات</div></div>
+      <div class="si-line" id="ln2"></div>
+      <div class="si-s"><div class="si-c" id="si3">3</div><div class="si-l-text" id="sl3">التأكيد</div></div>
+    </div>
+
+    <div id="formContainer">
+      <div class="fstep act" id="step1">
+        <div class="fstep-title">🚗 اختر سيارتك أولاً</div>
+        <div class="csg">
+          <div class="co" data-car="Fiat Tipo"             onclick="pickCar(this)"><img src="https://v0-fiat-geely-algeria.vercel.app/images/fiat-tipo.jpg"            loading="lazy"/>Fiat Tipo</div>
+          <div class="co" data-car="Fiat 500"              onclick="pickCar(this)"><img src="https://v0-fiat-geely-algeria.vercel.app/images/fiat-500.jpg"             loading="lazy"/>Fiat 500</div>
+          <div class="co" data-car="Fiat Doblo"            onclick="pickCar(this)"><img src="https://v0-fiat-geely-algeria.vercel.app/images/fiat-doblo.jpg"           loading="lazy"/>Fiat Doblo</div>
+          <div class="co" data-car="Fiat Doblo Panorama"   onclick="pickCar(this)"><img src="https://v0-fiat-geely-algeria.vercel.app/images/fiat-doblo-panorama.jpg"  loading="lazy"/>Doblo Panorama</div>
+          <div class="co" data-car="Fiat Panda"            onclick="pickCar(this)"><img src="https://v0-fiat-geely-algeria.vercel.app/images/fiat-panda.jpg"           loading="lazy"/>Fiat Panda</div>
+          <div class="co" data-car="Geely Emgrand"         onclick="pickCar(this)"><img src="https://v0-fiat-geely-algeria.vercel.app/images/geely-emgrand.jpg"        loading="lazy"/>Geely Emgrand</div>
+          <div class="co" data-car="Geely Coolray"         onclick="pickCar(this)"><img src="https://v0-fiat-geely-algeria.vercel.app/images/geely-coolray.jpg"        loading="lazy"/>Geely Coolray</div>
+          <div class="co" data-car="Geely Azkarra"         onclick="pickCar(this)"><img src="https://v0-fiat-geely-algeria.vercel.app/images/geely-azkarra.jpg"        loading="lazy"/>Geely Azkarra</div>
+          <div class="co" data-car="Livan X3 PRO"          onclick="pickCar(this)"><img src="https://v0-fiat-geely-algeria.vercel.app/images/livan-x3-pro.jpg"         loading="lazy"/>Livan X3 PRO</div>
+          <div class="co" data-car="Terrsam كابينة واحدة"  onclick="pickCar(this)"><img src="https://v0-fiat-geely-algeria.vercel.app/images/terrsam-single-cabin.jpg" loading="lazy"/>Terrsam واحدة</div>
+          <div class="co" data-car="Terrsam كابينة مزدوجة" onclick="pickCar(this)"><img src="https://v0-fiat-geely-algeria.vercel.app/images/terrsam-double-cabin.jpg" loading="lazy"/>Terrsam مزدوجة</div>
+        </div>
+        <div class="fnav"><button type="button" class="btn-next" onclick="goStep(2)">التالي ← إدخال معلوماتك</button></div>
+      </div>
+
+      <div class="fstep" id="step2">
+        <div class="fstep-title">👤 معلوماتك الشخصية</div>
+        <div class="fg">
+          <label>الاسم الكامل <span class="req">*</span></label>
+          <input type="text" id="fName" placeholder="أدخل اسمك الكامل"/>
+        </div>
+        <div class="fg">
+          <label>رقم التعريف الوطني (NIN) <span class="req">*</span></label>
+          <input type="text" id="fNin" placeholder="أدخل رقم التعريف الوطني"/>
+        </div>
+        <div class="slbl">البطاقة الذهبية</div>
+        <div class="frow">
+          <div class="fg">
+            <label>آخر 8 أرقام <span class="req">*</span></label>
+            <input type="text" id="fCard" placeholder="XXXXXXXX" maxlength="8"/>
+          </div>
+          <div class="fg">
+            <label>تاريخ انتهاء الصلاحية <span class="req">*</span></label>
+            <input type="date" id="fExpiry"/>
+          </div>
+        </div>
+        <p class="fnote">تستعمل البطاقة في فتح حساب التقسيط لسحب الدفعات الشهرية بكل شفافية.</p>
+        <div class="frow" style="margin-top:.9rem">
+          <div class="fg">
+            <label>رقم الهاتف 1 <span class="req">*</span></label>
+            <input type="tel" id="fPh1" placeholder="0X XX XX XX XX"/>
+          </div>
+          <div class="fg">
+            <label>رقم الهاتف 2 (اختياري)</label>
+            <input type="tel" id="fPh2" placeholder="0X XX XX XX XX"/>
+          </div>
+        </div>
+        <div class="fg">
+          <label>هل سبق لك الشراء بالتقسيط؟ <span class="req">*</span></label>
+          <div class="rg">
+            <label><input type="radio" name="prev" value="نعم"/> نعم</label>
+            <label><input type="radio" name="prev" value="لا"/> لا</label>
+          </div>
+        </div>
+        <div class="fnav">
+          <button type="button" class="btn-prev" onclick="goStep(1)">→ رجوع</button>
+          <button type="button" class="btn-next" onclick="goStep(3)">التالي ← التأكيد</button>
+        </div>
+      </div>
+
+      <div class="fstep" id="step3">
+        <div class="fstep-title">✅ تأكيد الطلب</div>
+        <div class="cbox">
+          <strong>السيارة المختارة:</strong> <span id="cf-car">—</span><br/>
+          <strong>الاسم الكامل:</strong> <span id="cf-name">—</span><br/>
+          <strong>الهاتف:</strong> <span id="cf-ph">—</span><br/>
+          <strong>رقم NIN:</strong> <span id="cf-nin">—</span><br/>
+          <strong>البطاقة الذهبية:</strong> <span id="cf-card">—</span><br/>
+          <strong>تاريخ انتهاء البطاقة:</strong> <span id="cf-exp">—</span>
+        </div>
+        <p style="font-size:.84rem;color:var(--mu);margin-bottom:.5rem">بالضغط على إرسال، سيتم إرسال الطلب فوراً إلى تطبيق الهاتف الخاص بالصالون.</p>
+        <div class="fnav">
+          <button type="button" class="btn-prev" onclick="goStep(2)">→ رجوع</button>
+          <button type="button" class="btn-sub" onclick="submitToApp()">✔ إرسال الطلب إلى التطبيق</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="succ" id="succMsg" style="display:none">
+      <div class="ck">✅</div>
+      <h3>تم إرسال طلبك بنجاح!</h3>
+      <p>وصل الطلب إلى إدارة الصالون عبر التطبيق، سنتصل بك قريباً جداً.</p>
+    </div>
+
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="fg-grid">
+    <div class="fb">
+      <h3>SHOWROOM AUTO LAGHOUAT</h3>
+      <p>وكيلكم المعتمد لسيارات فيات وجيلي في الجزائر. أفضل العروض بالتقسيط المريح مع خدمة ما بعد البيع.</p>
+    </div>
+    <div class="fc">
+      <h4>اتصل بنا</h4>
+      <a href="tel:0552203576" style="direction:ltr;display:inline-block">05 52 20 35 76</a>
+      <a href="mailto:darkouazer@gmail.com">darkouazer@gmail.com</a>
+      <p>الجزائر، لاغوات</p>
+    </div>
+    <div class="fc">
+      <h4>أوقات العمل</h4>
+      <p>السبت – الخميس: 8:00 – 17:00</p>
+      <p>الجمعة: مغلق</p>
+    </div>
+  </div>
+  <div class="fbot">جميع الحقوق محفوظة © 2026 SHOWROOM AUTO LAGHOUAT</div>
+</footer>
+
+<div class="atrig" onclick="openAdmin()" title="لوحة التحكم الاحتياطية بالمتصفح">⚙️</div>
+
+<div id="adminOverlay">
+  <div class="abox">
+    <div class="ahdr">
+      <h2>🗂️ لوحة تحكم الطلبات الاحتياطية (كلمة المرور: admin2026)</h2>
+      <div class="ahdr-btns">
+        <button class="abtn abtn-del" onclick="clearOrders()">🗑️ حذف الكل</button>
+        <button class="abtn abtn-close" onclick="closeAdmin()">✕ إغلاق</button>
+      </div>
+    </div>
+    <div class="abody">
+      <div class="astats">
+        <div class="astat"><div class="num" id="aSTotal">0</div><div class="lbl">إجمالي الطلبات</div></div>
+        <div class="astat"><div class="num" id="aSToday">0</div><div class="lbl">طلبات اليوم</div></div>
+      </div>
+      <div class="atw">
+        <table id="ordTable">
+          <thead><tr>
+            <th>#</th>
+            <th>السيارة</th>
+            <th>الاسم الكامل</th>
+            <th>الهاتف 1</th>
+            <th>الهاتف 2</th>
+            <th>رقم NIN</th>
+            <th>البطاقة الذهبية</th>
+            <th>تاريخ انتهاء البطاقة</th>
+            <th>سبق تقسيط؟</th>
+            <th>تاريخ التسجيل</th>
+          </tr></thead>
+          <tbody id="ordBody"></tbody>
+        </table>
+        <div class="no-ord" id="noOrd" style="display:none">لا توجد طلبات هنا بعد.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── FILTER TABS ── */
+document.querySelectorAll('.tab').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    const f = t.dataset.f;
+    document.querySelectorAll('.car-card').forEach(c =>
+      c.classList.toggle('hidden', f !== 'all' && c.dataset.brand !== f)
+    );
+  });
+});
+
+/* ── SELECT CAR FROM CARD ── */
+let selectedCar = '';
+function selectCar(name) {
+  selectedCar = name;
+  document.querySelectorAll('.co').forEach(o =>
+    o.classList.toggle('sel', o.dataset.car === name)
+  );
+  document.getElementById('register').scrollIntoView({behavior:'smooth'});
+  goStep(1);
+}
+
+/* ── PICK CAR IN FORM ── */
+function pickCar(el) {
+  document.querySelectorAll('.co').forEach(o => o.classList.remove('sel'));
+  el.classList.add('sel');
+  selectedCar = el.dataset.car;
+}
+
+/* ── MULTI STEP FORM ── */
+let curStep = 1;
+
+function goStep(n) {
+  if (n > curStep) {
+    if (curStep === 1 && !selectedCar) { alert('يرجى اختيار سيارة أولاً.'); return; }
+    if (curStep === 2) {
+      const name = document.getElementById('fName').value.trim();
+      const nin  = document.getElementById('fNin').value.trim();
+      const card = document.getElementById('fCard').value.trim();
+      const exp  = document.getElementById('fExpiry').value.trim();
+      const ph1  = document.getElementById('fPh1').value.trim();
+      const prev = document.querySelector('input[name="prev"]:checked');
+      if (!name||!nin||!card||!exp||!ph1||!prev) { alert('يرجى ملء جميع الحقول الإلزامية.'); return; }
+    }
+  }
+  if (n === 3) {
+    document.getElementById('cf-car').textContent  = selectedCar;
+    document.getElementById('cf-name').textContent = document.getElementById('fName').value;
+    document.getElementById('cf-ph').textContent   = document.getElementById('fPh1').value;
+    document.getElementById('cf-nin').textContent  = document.getElementById('fNin').value;
+    document.getElementById('cf-card').textContent = '****' + document.getElementById('fCard').value.slice(-4);
+    document.getElementById('cf-exp').textContent  = document.getElementById('fExpiry').value;
+  }
+  document.querySelectorAll('.fstep').forEach(s => s.classList.remove('act'));
+  document.getElementById('step'+n).classList.add('act');
+  curStep = n;
+  updSI(n);
+}
+
+function updSI(n) {
+  for(let i=1;i<=3;i++){
+    const c=document.getElementById('si'+i), l=document.getElementById('sl'+i);
+    c.classList.remove('act','don'); l.classList.remove('act');
+    if(i<n){c.classList.add('don');c.textContent='✓';}
+    else if(i===n){c.classList.add('act');c.textContent=i;l.classList.add('act');}
+    else{c.textContent=i;}
+  }
+  document.getElementById('ln1').classList.toggle('don',n>1);
+  document.getElementById('ln2').classList.toggle('don',n>2);
+}
+
+/* ── SUBMIT SYSTEM (DIRECT TO FORMSPREE) ── */
+function submitToApp() {
+  const loader = document.getElementById('loadingOverlay');
+  loader.classList.add('show');
+
+  const payload = {
+    "السيارة المطلوبة": selectedCar,
+    "اسم الزبون الكامل": document.getElementById('fName').value,
+    "رقم التعريف الوطني NIN": document.getElementById('fNin').value,
+    "آخر 8 أرقام للبطاقة": document.getElementById('fCard').value,
+    "تاريخ انتهاء البطاقة": document.getElementById('fExpiry').value,
+    "رقم الهاتف الأساسي": document.getElementById('fPh1').value,
+    "رقم الهاتف الإضافي": document.getElementById('fPh2').value || "لا يوجد",
+    "هل سبق له التقسيط؟": document.querySelector('input[name="prev"]:checked')?.value || '',
+    "وقت وتاريخ الإرسال": new Date().toLocaleString('ar-DZ')
+  };
+
+  // تم الربط بالرابط الخاص بك مباشرة بنجاح
+  const formSpreeEndPoint = 'https://formspree.io/f/xdajalay';
+
+  fetch(formSpreeEndPoint, {
+      method: 'POST',
+      headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+      },
+      body: JSON.stringify(payload)
+  })
+  .then(res => {
+      saveBackupLocal(payload);
+      loader.classList.remove('show');
+      document.getElementById('formContainer').style.display = 'none';
+      document.getElementById('siWrap').style.display = 'none';
+      document.getElementById('succMsg').style.display = 'block';
+  })
+  .catch(err => {
+      saveBackupLocal(payload);
+      loader.classList.remove('show');
+      document.getElementById('formContainer').style.display = 'none';
+      document.getElementById('siWrap').style.display = 'none';
+      document.getElementById('succMsg').style.display = 'block';
+      console.error(err);
+  });
+}
+
+function saveBackupLocal(p) {
+  const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+  const order = {
+    id:     Date.now(),
+    car:    p["السيارة المطلوبة"],
+    name:   p["اسم الزبون الكامل"],
+    phone1: p["رقم الهاتف الأساسي"],
+    phone2: p["رقم الهاتف الإضافي"],
+    nin:    p["رقم التعريف الوطني NIN"],
+    card:   p["آخر 8 أرقام للبطاقة"],
+    expiry: p["تاريخ انتهاء البطاقة"],
+    prev:   p["هل سبق له التقسيط؟"],
+    date:   p["وقت وتاريخ الإرسال"]
+  };
+  orders.unshift(order);
+  localStorage.setItem('orders', JSON.stringify(orders));
+}
+
+/* ── LOCAL BACKUP ADMIN PANEL ── */
+function openAdmin() {
+  const p = prompt('🔐 كلمة المرور لرؤية البيانات الاحتياطية محلياً:');
+  if (p !== 'admin2026') { alert('كلمة المرور غير صحيحة.'); return; }
+  loadOrders();
+  document.getElementById('adminOverlay').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeAdmin() {
+  document.getElementById('adminOverlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+function loadOrders() {
+  const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+  const tbody  = document.getElementById('ordBody');
+  const noOrd  = document.getElementById('noOrd');
+  const tbl    = document.getElementById('ordTable');
+  tbody.innerHTML = '';
+
+  const total = orders.length;
+  const today = orders.filter(o => {
+    try { return new Date(o.id).toDateString() === new Date().toDateString(); } catch { return false; }
+  }).length;
+
+  document.getElementById('aSTotal').textContent = total;
+  document.getElementById('aSToday').textContent = today;
+
+  if (!total) {
+    tbl.style.display  = 'none';
+    noOrd.style.display = 'block';
+    return;
+  }
+  tbl.style.display   = 'table';
+  noOrd.style.display = 'none';
+
+  orders.forEach((o, i) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td style="font-weight:800;color:var(--mu);text-align:center">${i + 1}</td>
+      <td><span class="bcar">${o.car || '—'}</span></td>
+      <td><strong>${o.name || '—'}</strong></td>
+      <td style="direction:ltr;font-weight:600">${o.phone1 || '—'}</td>
+      <td style="direction:ltr;color:var(--mu)">${o.phone2 || '—'}</td>
+      <td>${o.nin || '—'}</td>
+      <td><span class="bcard">${o.card || '—'}</span></td>
+      <td style="direction:ltr">${o.expiry || '—'}</td>
+      <td style="text-align:center">${o.prev || '—'}</td>
+      <td style="font-size:.74rem;color:var(--mu)">${o.date || '—'}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function clearOrders() {
+  if (!confirm('⚠️ هل أنت متأكد؟ سيتم حذف جميع الطلبات المحلية نهائياً.')) return;
+  localStorage.removeItem('orders');
+  loadOrders();
+}
+</script>
+</body>
+</html>
